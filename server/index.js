@@ -33,7 +33,7 @@ async function sendEmail(name, email, mobile, service) {
     console.log("Process to send email");
     const mailOption = {
         from: process.env.GMAIL_USER,
-        to: [`${email}`],
+        to: [`digitalithubpy@gmail.com`],
         subject: "Registration ",
         html:
             `
