@@ -27,7 +27,6 @@ let transporter = nodemailer.createTransport({
     }
 });
 
-sendEmail('hari', 'saravanavelu0066@gmail.com', '29312', 'tech')
 
 async function sendEmail(name, email, mobile, service) {
     console.log("Process to send email");
@@ -88,16 +87,22 @@ async function sendEmail(name, email, mobile, service) {
             font-weight: bold;
             margin-top: 20px;
         }
+            .img-style{
+            height : 50px;
+            weight : 50px;
+            }
     </style>
 </head>
 <body class="bg-gray-100">
     <div class="container">
         <div class="header">
-            <h1 class="text-xl font-bold">Your Company</h1>
+            <h1 class="text-xl font-bold">
+            Digital IT Hub
+            </h1>
         </div>
         <div class="content">
-            <p class="text-lg">Hello ${name},</p>
-            <p class="mt-4 text-gray-600">Thank you for reaching out to us. We have received your details and will get back to you shortly.</p>
+            <p class="text-lg">Hello Digital It Hub,</p>
+            <p class="mt-4 text-gray-600"> New Registration on Your Digital IT Hub</p>
             <p class="mt-4 text-gray-600">Here are the details you provided:</p>
             <ul class="mt-2 text-gray-600">
                 <li><strong>Name:</strong> ${name}</li>
@@ -106,7 +111,7 @@ async function sendEmail(name, email, mobile, service) {
                 <li><strong>Service:</strong> ${service}</li>
             </ul>
             <p class="mt-4 text-gray-600">If you have any further questions, please feel free to reply to this email.</p>
-            <a href="https://yourcompany.com" class="button">Visit our Website</a>
+            <a href="https://digitalithub.in/registrationdetails" class="button">Visit our Website</a>
         </div>
         <div class="footer">
             <p>&copy; 2024 Your Company. All rights reserved.</p>
