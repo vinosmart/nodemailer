@@ -27,13 +27,14 @@ let transporter = nodemailer.createTransport({
     }
 });
 
+sendEmail('hari', 'saravanavelu0066@gmail.com', '29312', 'tech')
+
 async function sendEmail(name, email, mobile, service) {
     console.log("Process to send email");
     const mailOption = {
         from: process.env.GMAIL_USER,
         to: [`${email}`],
-        subject: "Test",
-        text: "Hello",
+        subject: "Registration ",
         html:
             `
             <html lang="en">
@@ -95,7 +96,7 @@ async function sendEmail(name, email, mobile, service) {
             <h1 class="text-xl font-bold">Your Company</h1>
         </div>
         <div class="content">
-            <p class="text-lg">Hello {{name}},</p>
+            <p class="text-lg">Hello ${name},</p>
             <p class="mt-4 text-gray-600">Thank you for reaching out to us. We have received your details and will get back to you shortly.</p>
             <p class="mt-4 text-gray-600">Here are the details you provided:</p>
             <ul class="mt-2 text-gray-600">
