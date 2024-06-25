@@ -95,11 +95,14 @@ async function sendEmail(name, email, mobile, service) {
 </head>
 <body class="bg-gray-100">
     <div class="container">
-        <div class="header">
-            <h1 class="text-xl font-bold">
-            Digital IT Hub
-            </h1>
-        </div>
+      <div class="header" style="display: flex; justify-content: center; align-items: center; text-align: center;">
+    <div class="text-xl font-bold" style="display: flex; flex-direction: row; gap: 10px; align-items: center;">
+        <img src="https://ik.imagekit.io/pa8uzidr4/msg1603122132-8636.jpg?updatedAt=1719341527805" alt="" style="height: 60px; width: 60px; border-radius: 100%;" />
+        <h1 style="font-size : 25px">Digital IT Hub</h1>
+    </div>
+</div>
+
+        
         <div class="content">
             <p class="text-lg">Hello Digital It Hub,</p>
             <p class="mt-4 text-gray-600"> New Registration on Your Digital IT Hub</p>
@@ -114,11 +117,12 @@ async function sendEmail(name, email, mobile, service) {
             <a href="https://digitalithub.in/registrationdetails" class="button">Visit our Website</a>
         </div>
         <div class="footer">
-            <p>&copy; 2024 Your Company. All rights reserved.</p>
+            <p>&copy; 2024 Digital IT Hub. All rights reserved.</p>
         </div>
     </div>
 </body>
 </html>
+            
             `
 
     };
