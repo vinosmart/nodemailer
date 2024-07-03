@@ -103,6 +103,8 @@ async function sendEmail(name, email, mobile, service) {
         text-align: space-around;
         background-color: #a259ff;
         max-width: 680px;
+          border-radius: 10px;
+       box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
       "
     >
       <div
