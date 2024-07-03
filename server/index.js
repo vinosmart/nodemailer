@@ -49,14 +49,14 @@ async function sendEmail(name, email, mobile, service) {
                         padding: 0;
                         font-family: 'Inter', sans-serif;
                     }
-                    .container {
-                        max-width: 600px;
-                        margin: 0 auto;
-                        padding: 20px;
-                        background-color: #ffffff;
-                        border-radius: 10px;
-                        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-                    }
+                    // .container {
+                    //     max-width: 600px;
+                    //     margin: 0 auto;
+                    //     padding: 20px;
+                    //     background-color: #ffffff;
+                    //     border-radius: 10px;
+                    //     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+                    // }
                     .header {
                         text-align: center;
                         padding: 10px 0;
@@ -77,15 +77,15 @@ async function sendEmail(name, email, mobile, service) {
                         color: #6b7280;
                     }
                     .button {
-                        display: inline-block;
-                        padding: 10px 20px;
-                        background-color: #a259ff;
-                        color: #ffffff;
-                        border-radius: 5px;
-                        text-decoration: none;
-                        font-weight: bold;
-                        margin-top: 20px;
-                    }
+        display: inline-block;
+        padding: 10px 20px;
+        background-color: #a259ff;
+        color: #ffffff; /* White text color */
+        border-radius: 5px;
+        text-decoration: none !important;
+        font-weight: bold;
+        margin-top: 20px;
+    }
                     .img-style{
                         height : 50px;
                         weight : 50px;
@@ -93,14 +93,37 @@ async function sendEmail(name, email, mobile, service) {
                 </style>
             </head>
             <body class="bg-gray-100">
-                <div class="container">
-                    <div class="header" style="display: flex; justify-content: center; align-items: center; text-align: center;">
-                        <div class="text-xl font-bold" style="display: flex; flex-direction: row; gap: 10px; align-items: center;">
-                            <img src="https://ik.imagekit.io/pa8uzidr4/msg1603122132-8636.jpg?updatedAt=1719341527805" alt="" style="height: 60px; width: 60px; border-radius: 100%;" />
-                            <h1 style="font-size : 25px">Digital IT Hub</h1>
-                        </div>
-                    </div>
-                    </div>
+               <div class="container">
+    <div
+      class="header"
+      style="
+        display: flex;
+        justify-content: space-around;
+        align-items: space-around;
+        text-align: space-around;
+        background-color: #a259ff;
+        max-width: 680px;
+      "
+    >
+      <div
+        class="text-xl font-bold"
+        style="
+          display: flex;
+          flex-direction: row;
+          gap: 10px;
+          align-items: center;
+          padding: 2px;
+        "
+      >
+        <img
+          src="https://ik.imagekit.io/pa8uzidr4/msg1603122132-8636.jpg?updatedAt=1719341527805"
+          alt=""
+          style="height: 60px; width: 60px; border-radius: 100%"
+        />
+        <h1 style="font-size: 25px; color: white">Digital IT Hub</h1>
+      </div>
+    </div>
+  </div>
                     <div class="content">
                         <p class="text-lg">Hello Digital It Hub,</p>
                         <p class="mt-4 text-gray-600"> New Registration on Your Digital IT Hub</p>
