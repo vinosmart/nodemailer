@@ -76,16 +76,16 @@ async function sendEmail(name, email, mobile, service) {
                         border-bottom-right-radius: 10px;
                         color: #6b7280;
                     }
-                    // .button {
-                    //     display: inline-block;
-                    //     padding: 10px 20px;
-                    //     background-color: #FFFFF;
-                    //     color: #ffffff;
-                    //     border-radius: 5px;
-                    //     text-decoration: none;
-                    //     font-weight: bold;
-                    //     margin-top: 20px;
-                    // }
+                    .button {
+                        display: inline-block;
+                        padding: 10px 20px;
+                        background-color: #a259ff;
+                        color: #ffffff;
+                        border-radius: 5px;
+                        text-decoration: none;
+                        font-weight: bold;
+                        margin-top: 20px;
+                    }
                     .img-style{
                         height : 50px;
                         weight : 50px;
@@ -100,6 +100,7 @@ async function sendEmail(name, email, mobile, service) {
                             <h1 style="font-size : 25px">Digital IT Hub</h1>
                         </div>
                     </div>
+                    </div>
                     <div class="content">
                         <p class="text-lg">Hello Digital It Hub,</p>
                         <p class="mt-4 text-gray-600"> New Registration on Your Digital IT Hub</p>
@@ -113,14 +114,8 @@ async function sendEmail(name, email, mobile, service) {
                         <p class="mt-4 text-gray-600">If you have any further deatils want, please check registration page.</p>
                       <a
           href="https://digitalithub.in/registrationdetails"
-          style="
-            background-color: #a259ff;
-            display: inline-block;
-            padding: 10px 20px;
-            font: 600;
-            border-radius: 5px;
-            margin-top: 20px;
-          "
+          class="button"
+         
           >Check Registration Details</a
         >
                     </div>
