@@ -113,6 +113,8 @@ async function sendEmail(name, email, mobile, service) {
           gap: 10px;
           align-items: center;
           padding: 2px;
+          margin-left: 200px;
+
         "
       >
         <img
