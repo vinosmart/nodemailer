@@ -103,8 +103,6 @@ async function sendEmail(name, email, mobile, service) {
         text-align: space-around;
         background-color: #a259ff;
         max-width: 680px;
-        border-radius: 10px;
-       box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
       "
     >
       <div
@@ -113,17 +111,16 @@ async function sendEmail(name, email, mobile, service) {
           display: flex;
           flex-direction: row;
           gap: 10px;
-          align-items: space-around;
+          align-items: center;
           padding: 2px;
-          margin-top-2px;
-        
+          margin-left: 200px;
 
         "
       >
         <img
           src="https://ik.imagekit.io/pa8uzidr4/msg1603122132-8636.jpg?updatedAt=1719341527805"
           alt=""
-          style="height: 60px; width: 60px; border-radius: 100%; margin-left-10px;"
+          style="height: 60px; width: 60px; border-radius: 100%"
         />
         <h1 style="font-size: 25px; color: white">Digital IT Hub</h1>
       </div>
