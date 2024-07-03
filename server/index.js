@@ -162,6 +162,18 @@ app.post("/api/send-email", async (req, res) => {
 app.get("/api/get-registrations", (req, res) => {
   res.send(registrations);
 });
+app.put("/api/update-registration/:id", (req, res) => {
+  const { id } = req.params;
+  const { isNew } = req.body;
+
+  const registration = registrations.find((reg) => reg.id === id);
+  if (registration) {
+    registration.isNew = isNew;
+    res.send({ success: true, message: "Registration updated successfully" });
+  } else {
+    res.send({ success: false, message: "Registration not found" });
+  }
+});
 
 app.delete("/api/delete-registration/:id", (req, res) => {
   const { id } = req.params;
