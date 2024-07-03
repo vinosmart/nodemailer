@@ -76,16 +76,16 @@ async function sendEmail(name, email, mobile, service) {
                         border-bottom-right-radius: 10px;
                         color: #6b7280;
                     }
-                    .button {
-                        display: inline-block;
-                        padding: 10px 20px;
-                        background-color: #FFFFF;
-                        color: #ffffff;
-                        border-radius: 5px;
-                        text-decoration: none;
-                        font-weight: bold;
-                        margin-top: 20px;
-                    }
+                    // .button {
+                    //     display: inline-block;
+                    //     padding: 10px 20px;
+                    //     background-color: #FFFFF;
+                    //     color: #ffffff;
+                    //     border-radius: 5px;
+                    //     text-decoration: none;
+                    //     font-weight: bold;
+                    //     margin-top: 20px;
+                    // }
                     .img-style{
                         height : 50px;
                         weight : 50px;
@@ -103,15 +103,26 @@ async function sendEmail(name, email, mobile, service) {
                     <div class="content">
                         <p class="text-lg">Hello Digital It Hub,</p>
                         <p class="mt-4 text-gray-600"> New Registration on Your Digital IT Hub</p>
-                        <p class="mt-4 text-gray-600">Here are the details you provided:</p>
+                        <p class="mt-4 text-gray-600">Here are the details user provided:</p>
                         <ul class="mt-2 text-gray-600">
                             <li><strong>Name:</strong> ${name}</li>
                             <li><strong>Email:</strong> ${email}</li>
                             <li><strong>Mobile:</strong> ${mobile}</li>
                             <li><strong>Service:</strong> ${service}</li>
                         </ul>
-                        <p class="mt-4 text-gray-600">If you have any further questions, please feel free to reply to this email.</p>
-                        <a href="https://digitalithub.in/registrationdetails" class="button">Visit our Website</a>
+                        <p class="mt-4 text-gray-600">If you have any further deatils want, please check registration page.</p>
+                      <a
+          href="https://digitalithub.in/registrationdetails"
+          style="
+            background-color: #a259ff;
+            display: inline-block;
+            padding: 10px 20px;
+            font: 600;
+            border-radius: 5px;
+            margin-top: 20px;
+          "
+          >Check Registration Details</a
+        >
                     </div>
                     <div class="footer">
                         <p>&copy; 2024 Digital IT Hub. All rights reserved.</p>
