@@ -160,7 +160,18 @@ app.post("/api/send-email", async (req, res) => {
 });
 
 app.get("/api/get-registrations", (req, res) => {
-  res.send(registrations);
+  const page = parseInt(req.query.page) || 1;
+  const limit = parseInt(req.query.limit) || 10;
+  const startIndex = (page - 1) * limit;
+  const endIndex = page * limit;
+
+  const paginatedRegistrations = registrations.slice(startIndex, endIndex);
+  res.send({
+    totalRegistrations: registrations.length,
+    currentPage: page,
+    totalPages: Math.ceil(registrations.length / limit),
+    registrations: paginatedRegistrations,
+  });
 });
 app.put("/api/update-registration/:id", (req, res) => {
   const { id } = req.params;
