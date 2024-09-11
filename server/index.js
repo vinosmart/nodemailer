@@ -1,125 +1,165 @@
 import express from "express";
 import bodyParser from "body-parser";
 import nodemailer from "nodemailer";
-import * as dotenv from "dotenv";
 import cors from "cors";
-import { v4 as uuidv4 } from "uuid";
+import multer from "multer";
+import * as dotenv from "dotenv";
 
 dotenv.config();
 
 const app = express();
-app.use(bodyParser.json());
 app.use(cors());
+app.use(bodyParser.json());
+
+const upload = multer(); // Using multer for file uploads
 const port = 5000;
-
-let registrations = [];
-
-app.get("/", (req, res) => {
-  res.send({ success: true });
-});
 
 let transporter = nodemailer.createTransport({
   service: "gmail",
   port: 465,
   secure: true,
-  logger: false,
-  secureConnection: false,
   auth: {
     user: process.env.GMAIL_USER,
     pass: process.env.GMAIL_PASS,
   },
 });
 
-async function sendEmail(name, email, mobile, service) {
+// URL of the logo image
+const logoUrl =
+  "https://ik.imagekit.io/pa8uzidr4/msg1603122132-8636.jpg?updatedAt=1719341527805"; // Replace with the URL to your logo image
+
+async function sendEmail(name, email, mobile, service, position, resumeFile) {
   console.log("Process to send email");
+
+  // Determine email subject based on whether position and resume are provided
+  const emailSubject =
+    position || resumeFile ? "New Job Application" : "New Enquiry";
+
   const mailOption = {
     from: process.env.GMAIL_USER,
-    to: [`digitalithubpy@gmail.com`],
-    subject: "Registration ",
+    to: [`vinothkumar05031996@gmail.com`],
+    subject: emailSubject,
     html: `
       <html lang="en">
       <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Email Template</title>
+        <title>${emailSubject}</title>
         <style>
-          @import url('https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css');
           body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
             margin: 0;
             padding: 0;
-            font-family: 'Inter', sans-serif;
           }
           .container {
+            width: 100%;
             max-width: 600px;
             margin: 0 auto;
-            padding: 20px;
             background-color: #ffffff;
             border-radius: 10px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
           }
           .header {
+            background-color: #041C54;
+            padding: 20px;
             text-align: center;
-            padding: 10px 0;
-            background-color: #A259FF;
-            color: #ffffff;
-            border-top-left-radius: 10px;
-            border-top-right-radius: 10px;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+          }
+          .header img {
+            max-width: 80px; /* Adjusted to be smaller */
+            border-radius: 50%; /* Circular logo */
+            height: auto;
+            margin-top: 20px; /* Adjusted to be centered */
+            margin-right: 10px; /* Space between logo and title */
+          }
+          .header h1 {
+            margin: 0;
+            font-size: 24px;
           }
           .content {
             padding: 20px;
+            line-height: 1.6;
+            color: #333;
+          }
+          .content p {
+            margin: 10px 0;
+            font-size: 16px;
+          }
+          .content ul {
+            list-style: none;
+            padding: 0;
+          }
+          .content ul li {
+            background-color: #f9f9f9;
+            padding: 10px;
+            margin-bottom: 8px;
+            border-radius: 5px;
+          }
+          .content ul li strong {
+            color: #041C54;
           }
           .footer {
+            background-color: #f4f4f4;
+            padding: 10px;
             text-align: center;
-            padding: 10px 0;
-            background-color: #f3f4f6;
-            border-bottom-left-radius: 10px;
-            border-bottom-right-radius: 10px;
-            color: #6b7280;
-          }
-          .button {
-            display: inline-block;
-            padding: 10px 20px;
-            background-color: #a259ff;
-            color: #ffffff; /* White text color */
-            border-radius: 5px;
-            text-decoration: none !important;
-            font-weight: bold;
-            margin-top: 20px;
-          }
-          .img-style {
-            height: 50px;
-            weight: 50px;
+            font-size: 12px;
+            color: #777;
           }
         </style>
       </head>
-      <body class="bg-gray-100">
+      <body>
         <div class="container">
-          <div class="header" style="display: flex; justify-content: space-around; align-items: space-around; text-align: space-around; background-color: #a259ff; max-width: 680px; border-radius: 10px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
-            <div class="text-xl font-bold" style="display: flex; flex-direction: row; gap: 10px; align-items: center; padding: 2px; margin-left: 200px;">
-              <img src="https://ik.imagekit.io/pa8uzidr4/msg1603122132-8636.jpg?updatedAt=1719341527805" alt="" style="height: 60px; width: 60px; border-radius: 100%" />
-              <h1 style="font-size: 25px; color: white">Digital IT Hub</h1>
-            </div>
+          <!-- Email Header -->
+          <div class="header">
+            <img src="${logoUrl}" alt="Company Logo" />
+            <h1>${emailSubject}</h1>
           </div>
-        </div>
-        <div class="content">
-          <p class="text-lg">Hello Digital It Hub,</p>
-          <p class="mt-4 text-gray-600">New Registration on Your Digital IT Hub</p>
-          <p class="mt-4 text-gray-600">Here are the details user provided:</p>
-          <ul class="mt-2 text-gray-600">
-            <li><strong>Name:</strong> ${name}</li>
-            <li><strong>Email:</strong> ${email}</li>
-            <li><strong>Mobile:</strong> ${mobile}</li>
-            <li><strong>Service:</strong> ${service}</li>
-          </ul>
-          <p class="mt-4 text-gray-600">If you have any further details, please check the registration page.</p>
-          <a href="https://digitalithub.in/registrationdetails" class="button">Check Registration Details</a>
-        </div>
-        <div class="footer">
-          <p>&copy; 2024 Digital IT Hub. All rights reserved.</p>
+
+          <!-- Email Content -->
+          <div class="content">
+            <p><strong>Hello,</strong></p>
+            <p>A ${emailSubject.toLowerCase()} has been received. Here are the details:</p>
+
+            <ul>
+              <li><strong>Name:</strong> ${name}</li>
+              <li><strong>Email:</strong> ${email}</li>
+              <li><strong>Mobile:</strong> ${mobile}</li>
+              ${
+                service
+                  ? `<li><strong>Service Interested In:</strong> ${service}</li>`
+                  : ""
+              }
+              ${
+                position
+                  ? `<li><strong>Position Applied For:</strong> ${position}</li>`
+                  : ""
+              }
+            </ul>
+
+            <p>${resumeFile ? "Attached is the candidate's resume." : ""}</p>
+          </div>
+
+          <!-- Email Footer -->
+          <div class="footer">
+            <p>&copy; 2024 Buff Creative College. All rights reserved.</p>
+          </div>
         </div>
       </body>
       </html>
     `,
+    attachments: resumeFile
+      ? [
+          {
+            filename: resumeFile.originalname,
+            content: resumeFile.buffer,
+          },
+        ]
+      : [],
   };
 
   try {
@@ -132,64 +172,35 @@ async function sendEmail(name, email, mobile, service) {
   }
 }
 
-app.post("/api/send-email", async (req, res) => {
-  const { name, email, mobile, service } = req.body;
-  if (!name || !email || !mobile || !service) {
-    return res.send({ success: false, message: "Enter valid data" });
+app.post("/api/send-email", upload.single("resume"), async (req, res) => {
+  const { name, email, mobile, service, position } = req.body;
+  const resumeFile = req.file;
+
+  if (!name || !email || !mobile) {
+    return res.send({
+      success: false,
+      message: "Enter valid data.",
+    });
   }
 
-  const response = await sendEmail(name, email, mobile, service);
+  const response = await sendEmail(
+    name,
+    email,
+    mobile,
+    service,
+    position,
+    resumeFile
+  );
   if (response) {
-    const newRegistration = {
-      id: uuidv4(),
-      name,
-      email,
-      mobile,
-      service,
-      createdAt: new Date().toISOString(),
-    };
-    registrations.push(newRegistration);
-    res.send({
-      success: true,
-      message: "Email sent successfully",
-      registration: newRegistration,
-    });
+    res.send({ success: true, message: "Email sent successfully" });
   } else {
     res.send({ success: false, message: "Failed to send email" });
   }
 });
 
-app.get("/api/get-registrations", (req, res) => {
-  const page = parseInt(req.query.page) || 1;
-  const limit = parseInt(req.query.limit) || 10;
-  const startIndex = (page - 1) * limit;
-  const endIndex = page * limit;
-
-  const paginatedRegistrations = registrations.slice(startIndex, endIndex);
-  res.send({
-    totalRegistrations: registrations.length,
-    currentPage: page,
-    totalPages: Math.ceil(registrations.length / limit),
-    registrations: paginatedRegistrations,
-  });
-});
-app.put("/api/update-registration/:id", (req, res) => {
-  const { id } = req.params;
-  const { isNew } = req.body;
-
-  const registration = registrations.find((reg) => reg.id === id);
-  if (registration) {
-    registration.isNew = isNew;
-    res.send({ success: true, message: "Registration updated successfully" });
-  } else {
-    res.send({ success: false, message: "Registration not found" });
-  }
-});
-
-app.delete("/api/delete-registration/:id", (req, res) => {
-  const { id } = req.params;
-  registrations = registrations.filter((reg) => reg.id !== id);
-  res.send({ success: true, message: "Registration deleted successfully" });
+// Route to handle the root URL
+app.get("/", (req, res) => {
+  res.send("Server is running and the root route is working!");
 });
 
 app.listen(port, () => {
