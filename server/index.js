@@ -147,7 +147,7 @@ async function sendEmail(name, email, mobile, service, position, resumeFile) {
 
           <!-- Email Footer -->
           <div class="footer">
-            <p>&copy; 2024 Buff Creative College. All rights reserved.</p>
+            <p>&copy; 2024 Digital IT Hub. All rights reserved.</p>
           </div>
         </div>
       </body>
