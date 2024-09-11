@@ -74,12 +74,13 @@ async function sendEmail(name, email, mobile, service, position, resumeFile) {
             max-width: 80px; /* Adjusted to be smaller */
             border-radius: 50%; /* Circular logo */
             height: auto;
-            margin-top: 20px; /* Adjusted to be centered */
             margin-right: 10px; /* Space between logo and title */
           }
           .header h1 {
             margin: 0;
             font-size: 24px;
+            margin-top: 20px; /* Adjusted to be centered */
+
           }
           .content {
             padding: 20px;
