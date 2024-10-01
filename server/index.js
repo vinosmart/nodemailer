@@ -28,18 +28,26 @@ let transporter = nodemailer.createTransport({
 const logoUrl =
   "https://ik.imagekit.io/pa8uzidr4/msg1603122132-8636.jpg?updatedAt=1719341527805"; // Replace with the URL to your logo image
 
-  async function sendEmail(name, email, mobile, service, position, message, resumeFile) {
-    console.log("Process to send email");
-  
-    // Determine email subject based on whether position and resume are provided
-    const emailSubject =
-      position || resumeFile ? "New Job Application" : "New Enquiry";
-  
-    const mailOption = {
-      from: process.env.GMAIL_USER,
-      to: [`vinothkumar05031996@gmail.com`],
-      subject: emailSubject,
-      html: `
+async function sendEmail(
+  name,
+  email,
+  mobile,
+  service,
+  position,
+  message,
+  resumeFile
+) {
+  console.log("Process to send email");
+
+  // Determine email subject based on whether position and resume are provided
+  const emailSubject =
+    position || resumeFile ? "New Job Application" : "New Enquiry";
+
+  const mailOption = {
+    from: process.env.GMAIL_USER,
+    to: [`digitalitpy@gmail.com`],
+    subject: emailSubject,
+    html: `
         <html lang="en">
         <head>
           <meta charset="UTF-8">
@@ -153,53 +161,52 @@ const logoUrl =
         </body>
         </html>
       `,
-      attachments: resumeFile
-        ? [
-            {
-              filename: resumeFile.originalname,
-              content: resumeFile.buffer,
-            },
-          ]
-        : [],
-    };
-  
-    try {
-      await transporter.sendMail(mailOption);
-      console.log("Mail sent successfully");
-      return true;
-    } catch (err) {
-      console.log(err);
-      return false;
-    }
+    attachments: resumeFile
+      ? [
+          {
+            filename: resumeFile.originalname,
+            content: resumeFile.buffer,
+          },
+        ]
+      : [],
+  };
+
+  try {
+    await transporter.sendMail(mailOption);
+    console.log("Mail sent successfully");
+    return true;
+  } catch (err) {
+    console.log(err);
+    return false;
   }
-  
-  app.post("/api/send-email", upload.single("resume"), async (req, res) => {
-    const { name, email, mobile, service, position, message } = req.body;
-    const resumeFile = req.file;
-  
-    if (!name || !email || !mobile || !message) {
-      return res.send({
-        success: false,
-        message: "Enter valid data.",
-      });
-    }
-  
-    const response = await sendEmail(
-      name,
-      email,
-      mobile,
-      service,
-      position,
-      message,
-      resumeFile
-    );
-    if (response) {
-      res.send({ success: true, message: "Email sent successfully" });
-    } else {
-      res.send({ success: false, message: "Failed to send email" });
-    }
-  });
-  
+}
+
+app.post("/api/send-email", upload.single("resume"), async (req, res) => {
+  const { name, email, mobile, service, position, message } = req.body;
+  const resumeFile = req.file;
+
+  if (!name || !email || !mobile || !message) {
+    return res.send({
+      success: false,
+      message: "Enter valid data.",
+    });
+  }
+
+  const response = await sendEmail(
+    name,
+    email,
+    mobile,
+    service,
+    position,
+    message,
+    resumeFile
+  );
+  if (response) {
+    res.send({ success: true, message: "Email sent successfully" });
+  } else {
+    res.send({ success: false, message: "Failed to send email" });
+  }
+});
 
 // Route to handle the root URL
 app.get("/", (req, res) => {
