@@ -14,9 +14,6 @@ app.use(bodyParser.json());
 const upload = multer(); // Using multer for file uploads
 const port = 5000;
 
-// In-memory array to hold registered users
-const registeredUsers = [];
-
 let transporter = nodemailer.createTransport({
   service: "gmail",
   port: 465,
@@ -195,17 +192,6 @@ app.post("/api/send-email", upload.single("resume"), async (req, res) => {
     });
   }
 
-  // Save user data to the registeredUsers array
-  registeredUsers.push({
-    name,
-    email,
-    mobile,
-    service,
-    position,
-    message,
-    resumeFile: resumeFile ? resumeFile.originalname : null,
-  });
-
   const response = await sendEmail(
     name,
     email,
@@ -215,17 +201,11 @@ app.post("/api/send-email", upload.single("resume"), async (req, res) => {
     message,
     resumeFile
   );
-
   if (response) {
     res.send({ success: true, message: "Email sent successfully" });
   } else {
     res.send({ success: false, message: "Failed to send email" });
   }
-});
-
-// New route to get registered users
-app.get("/api/registered-users", (req, res) => {
-  res.send(registeredUsers);
 });
 
 // Route to handle the root URL
